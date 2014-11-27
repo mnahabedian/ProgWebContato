@@ -48,10 +48,10 @@ public class CidadeJpaController implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
-            Estado idEstado = cidade.getIdEstado();
+            Estado idEstado = cidade.getEstado();
             if (idEstado != null) {
                 idEstado = em.getReference(idEstado.getClass(), idEstado.getIdEstado());
-                cidade.setIdEstado(idEstado);
+                cidade.setEstado(idEstado);
             }
             List<Contato> attachedContatoList = new ArrayList<Contato>();
             for (Contato contatoListContatoToAttach : cidade.getContatoList()) {
@@ -65,8 +65,8 @@ public class CidadeJpaController implements Serializable {
                 idEstado = em.merge(idEstado);
             }
             for (Contato contatoListContato : cidade.getContatoList()) {
-                Cidade oldIdCidadeOfContatoListContato = contatoListContato.getIdCidade();
-                contatoListContato.setIdCidade(cidade);
+                Cidade oldIdCidadeOfContatoListContato = contatoListContato.getCidade();
+                contatoListContato.setCidade(cidade);
                 contatoListContato = em.merge(contatoListContato);
                 if (oldIdCidadeOfContatoListContato != null) {
                     oldIdCidadeOfContatoListContato.getContatoList().remove(contatoListContato);
@@ -94,8 +94,8 @@ public class CidadeJpaController implements Serializable {
             utx.begin();
             em = getEntityManager();
             Cidade persistentCidade = em.find(Cidade.class, cidade.getIdCidade());
-            Estado idEstadoOld = persistentCidade.getIdEstado();
-            Estado idEstadoNew = cidade.getIdEstado();
+            Estado idEstadoOld = persistentCidade.getEstado();
+            Estado idEstadoNew = cidade.getEstado();
             List<Contato> contatoListOld = persistentCidade.getContatoList();
             List<Contato> contatoListNew = cidade.getContatoList();
             List<String> illegalOrphanMessages = null;
@@ -112,7 +112,7 @@ public class CidadeJpaController implements Serializable {
             }
             if (idEstadoNew != null) {
                 idEstadoNew = em.getReference(idEstadoNew.getClass(), idEstadoNew.getIdEstado());
-                cidade.setIdEstado(idEstadoNew);
+                cidade.setEstado(idEstadoNew);
             }
             List<Contato> attachedContatoListNew = new ArrayList<Contato>();
             for (Contato contatoListNewContatoToAttach : contatoListNew) {
@@ -132,8 +132,8 @@ public class CidadeJpaController implements Serializable {
             }
             for (Contato contatoListNewContato : contatoListNew) {
                 if (!contatoListOld.contains(contatoListNewContato)) {
-                    Cidade oldIdCidadeOfContatoListNewContato = contatoListNewContato.getIdCidade();
-                    contatoListNewContato.setIdCidade(cidade);
+                    Cidade oldIdCidadeOfContatoListNewContato = contatoListNewContato.getCidade();
+                    contatoListNewContato.setCidade(cidade);
                     contatoListNewContato = em.merge(contatoListNewContato);
                     if (oldIdCidadeOfContatoListNewContato != null && !oldIdCidadeOfContatoListNewContato.equals(cidade)) {
                         oldIdCidadeOfContatoListNewContato.getContatoList().remove(contatoListNewContato);
@@ -186,7 +186,7 @@ public class CidadeJpaController implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Estado idEstado = cidade.getIdEstado();
+            Estado idEstado = cidade.getEstado();
             if (idEstado != null) {
                 idEstado.getCidadeList().remove(cidade);
                 idEstado = em.merge(idEstado);

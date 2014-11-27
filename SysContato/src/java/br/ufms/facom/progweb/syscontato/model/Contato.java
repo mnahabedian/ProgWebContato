@@ -93,7 +93,7 @@ public class Contato implements Serializable {
     private String foto;
     @JoinColumn(name = "id_cidade", referencedColumnName = "id_cidade")
     @ManyToOne(optional = false)
-    private Cidade idCidade;
+    private Cidade cidade;
 
     public Contato() {
     }
@@ -129,6 +129,11 @@ public class Contato implements Serializable {
 
     public Date getDataNasc() {
         return dataNasc;
+    }
+
+    public String getStrDataNasc() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(this.dataNasc);
     }
 
     public void setDataNasc(Date dataNasc) {
@@ -200,12 +205,16 @@ public class Contato implements Serializable {
         this.foto = foto;
     }
 
-    public Cidade getIdCidade() {
-        return idCidade;
+    public Cidade getCidade() {
+        return cidade;
     }
 
-    public void setIdCidade(Cidade idCidade) {
-        this.idCidade = idCidade;
+    public int getIdCidade() {
+        return cidade.getIdCidade();
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
     }
 
     @Override

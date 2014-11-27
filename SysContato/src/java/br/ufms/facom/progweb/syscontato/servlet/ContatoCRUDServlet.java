@@ -9,6 +9,7 @@ package br.ufms.facom.progweb.syscontato.servlet;
 import br.ufms.facom.progweb.syscontato.controller.CidadeJpaController;
 import br.ufms.facom.progweb.syscontato.controller.ContatoJpaController;
 import br.ufms.facom.progweb.syscontato.controller.EstadoJpaController;
+import br.ufms.facom.progweb.syscontato.controller.exceptions.RollbackFailureException;
 import br.ufms.facom.progweb.syscontato.model.Cidade;
 import br.ufms.facom.progweb.syscontato.model.Contato;
 import br.ufms.facom.progweb.syscontato.model.Estado;
@@ -113,12 +114,12 @@ public class ContatoCRUDServlet extends HttpServlet {
                         contato.setCel(request.getParameter("cel"));
                         contato.setOperadoraCel(request.getParameter("operadoraCel"));
                         Cidade cidade = cidadeJpaController.findCidade(Integer.parseInt(request.getParameter("idCidade")));
-                        contato.setIdCidade(cidade);
+                        contato.setCidade(cidade);
                         contato.setEmail(request.getParameter("email"));
-                        //contato.setFacebook(request.getParameter("facebook"));
-                        //contato.setTwitter(request.getParameter("twitter"));
-                        //contato.setSite(request.getParameter("site"));
-                        //contato.setFoto(request.getParameter("foto"));
+                        contato.setFacebook(request.getParameter("facebook"));
+                        contato.setTwitter(request.getParameter("twitter"));
+                        contato.setSite(request.getParameter("site"));
+                        contato.setFoto(request.getParameter("foto"));
                         
                         try {
                             contatoJpaController.create(contato);
@@ -130,11 +131,6 @@ public class ContatoCRUDServlet extends HttpServlet {
                         response.getWriter().print("<script>window.location='ContatoCRUDServlet?action=read&option=list';</script>");
                         break;
 
-                    case "cancel":
-                        response.setContentType("text/html;charset=windows-1252");
-                        response.getWriter().print("<script>window.location='ContatoCRUDServlet?action=read&option=list';</script>");
-                        break;
-                                
                     default:
                         break;
                 }
@@ -143,11 +139,18 @@ public class ContatoCRUDServlet extends HttpServlet {
             case "read":
                 switch (request.getParameter("option")) {
                     case "view":
+                        contato = contatoJpaController.findContato(Integer.parseInt(request.getParameter("id")));
+                        request.setAttribute("contato", contato);
+
+                        List<Estado> estados = estadoJpaController.findEstadoEntities();
+                        request.setAttribute("estados", estados);
+                        
+                        rd = request.getRequestDispatcher("contato/read.jsp");
+                        rd.forward(request, response);
                         break;
                         
                     case "list":
                         List<Contato> contatos = contatoJpaController.findContatoEntities();
-
                         request.setAttribute("contatos", contatos);
 
                         rd = request.getRequestDispatcher("contato/list.jsp");
@@ -162,14 +165,40 @@ public class ContatoCRUDServlet extends HttpServlet {
             case "update":
                 switch (request.getParameter("option")) {
                     case "show":
+                        contato = contatoJpaController.findContato(Integer.parseInt(request.getParameter("id")));
+                        request.setAttribute("contato", contato);
+
+                        List<Estado> estados = estadoJpaController.findEstadoEntities();
+                        request.setAttribute("estados", estados);
+                        
+                        rd = request.getRequestDispatcher("contato/update.jsp");
+                        rd.forward(request, response);
                         break;
                                 
                     case "ok":
+                        contato = new Contato(Integer.parseInt(request.getParameter("id")));
+                        contato.setNome(request.getParameter("nome"));
+                        contato.setDataNasc(request.getParameter("dataNasc"));
+                        contato.setCel(request.getParameter("cel"));
+                        contato.setOperadoraCel(request.getParameter("operadoraCel"));
+                        Cidade cidade = cidadeJpaController.findCidade(Integer.parseInt(request.getParameter("idCidade")));
+                        contato.setCidade(cidade);
+                        contato.setEmail(request.getParameter("email"));
+                        contato.setFacebook(request.getParameter("facebook"));
+                        contato.setTwitter(request.getParameter("twitter"));
+                        contato.setSite(request.getParameter("site"));
+                        contato.setFoto(request.getParameter("foto"));
+                        
+                        try {
+                            contatoJpaController.edit(contato);
+                        } catch (Exception ex) {
+                            Logger.getLogger(ContatoCRUDServlet.class.getName()).log(Level.SEVERE, null, ex);
+                        }                        
+                        
+                        response.setContentType("text/html;charset=windows-1252");
+                        response.getWriter().print("<script>window.location='ContatoCRUDServlet?action=read&option=list';</script>");
                         break;
 
-                    case "cancel":
-                        break;
-                                
                     default:
                         break;
                 }
@@ -178,12 +207,24 @@ public class ContatoCRUDServlet extends HttpServlet {
             case "delete":
                 switch (request.getParameter("option")) {
                     case "show":
+                        contato = contatoJpaController.findContato(Integer.parseInt(request.getParameter("id")));
+                        request.setAttribute("contato", contato);
+                        
+                        rd = request.getRequestDispatcher("contato/delete.jsp");
+                        rd.forward(request, response);
                         break;
                                 
                     case "ok":
-                        break;
-
-                    case "cancel":
+                        try {
+                            contatoJpaController.destroy(Integer.parseInt(request.getParameter("id")));
+                        } catch (RollbackFailureException ex) {
+                            Logger.getLogger(ContatoCRUDServlet.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (Exception ex) {
+                            Logger.getLogger(ContatoCRUDServlet.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        
+                        response.setContentType("text/html;charset=windows-1252");
+                        response.getWriter().print("<script>window.location='ContatoCRUDServlet?action=read&option=list';</script>");
                         break;
                                 
                     default:

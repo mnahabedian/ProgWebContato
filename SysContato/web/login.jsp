@@ -3,7 +3,7 @@
 
     <c:import url="header.jsp"></c:import>
 
-        <script src="cript.js"></script>
+        <script src="cript.js" type="text/javascript"></script>
         <script type="text/javascript">
             function criptografaSenha()
             {

@@ -55,8 +55,8 @@ public class EstadoJpaController implements Serializable {
             estado.setCidadeList(attachedCidadeList);
             em.persist(estado);
             for (Cidade cidadeListCidade : estado.getCidadeList()) {
-                Estado oldIdEstadoOfCidadeListCidade = cidadeListCidade.getIdEstado();
-                cidadeListCidade.setIdEstado(estado);
+                Estado oldIdEstadoOfCidadeListCidade = cidadeListCidade.getEstado();
+                cidadeListCidade.setEstado(estado);
                 cidadeListCidade = em.merge(cidadeListCidade);
                 if (oldIdEstadoOfCidadeListCidade != null) {
                     oldIdEstadoOfCidadeListCidade.getCidadeList().remove(cidadeListCidade);
@@ -108,8 +108,8 @@ public class EstadoJpaController implements Serializable {
             estado = em.merge(estado);
             for (Cidade cidadeListNewCidade : cidadeListNew) {
                 if (!cidadeListOld.contains(cidadeListNewCidade)) {
-                    Estado oldIdEstadoOfCidadeListNewCidade = cidadeListNewCidade.getIdEstado();
-                    cidadeListNewCidade.setIdEstado(estado);
+                    Estado oldIdEstadoOfCidadeListNewCidade = cidadeListNewCidade.getEstado();
+                    cidadeListNewCidade.setEstado(estado);
                     cidadeListNewCidade = em.merge(cidadeListNewCidade);
                     if (oldIdEstadoOfCidadeListNewCidade != null && !oldIdEstadoOfCidadeListNewCidade.equals(estado)) {
                         oldIdEstadoOfCidadeListNewCidade.getCidadeList().remove(cidadeListNewCidade);

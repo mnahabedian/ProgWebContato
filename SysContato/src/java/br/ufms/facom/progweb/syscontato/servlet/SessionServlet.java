@@ -54,7 +54,7 @@ public class SessionServlet extends HttpServlet {
                 request.getSession().setAttribute("usuario", usuario);
                 
                 rd = request.getRequestDispatcher("index.jsp");
-                rd.forward(request, response);                
+                rd.forward(request, response);
                 break;
                 
             case "logout":

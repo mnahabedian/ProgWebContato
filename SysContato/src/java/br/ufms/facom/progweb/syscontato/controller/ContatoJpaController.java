@@ -42,10 +42,10 @@ public class ContatoJpaController implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
-            Cidade idCidade = contato.getIdCidade();
+            Cidade idCidade = contato.getCidade();
             if (idCidade != null) {
                 idCidade = em.getReference(idCidade.getClass(), idCidade.getIdCidade());
-                contato.setIdCidade(idCidade);
+                contato.setCidade(idCidade);
             }
             em.persist(contato);
             if (idCidade != null) {
@@ -73,11 +73,11 @@ public class ContatoJpaController implements Serializable {
             utx.begin();
             em = getEntityManager();
             Contato persistentContato = em.find(Contato.class, contato.getIdContato());
-            Cidade idCidadeOld = persistentContato.getIdCidade();
-            Cidade idCidadeNew = contato.getIdCidade();
+            Cidade idCidadeOld = persistentContato.getCidade();
+            Cidade idCidadeNew = contato.getCidade();
             if (idCidadeNew != null) {
                 idCidadeNew = em.getReference(idCidadeNew.getClass(), idCidadeNew.getIdCidade());
-                contato.setIdCidade(idCidadeNew);
+                contato.setCidade(idCidadeNew);
             }
             contato = em.merge(contato);
             if (idCidadeOld != null && !idCidadeOld.equals(idCidadeNew)) {
@@ -122,7 +122,7 @@ public class ContatoJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The contato with id " + id + " no longer exists.", enfe);
             }
-            Cidade idCidade = contato.getIdCidade();
+            Cidade idCidade = contato.getCidade();
             if (idCidade != null) {
                 idCidade.getContatoList().remove(contato);
                 idCidade = em.merge(idCidade);

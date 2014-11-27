@@ -48,8 +48,8 @@ public class Cidade implements Serializable {
     private String nome;
     @JoinColumn(name = "id_estado", referencedColumnName = "id_estado")
     @ManyToOne(optional = false)
-    private Estado idEstado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCidade")
+    private Estado Estado;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cidade")
     private List<Contato> contatoList;
 
     public Cidade() {
@@ -80,12 +80,12 @@ public class Cidade implements Serializable {
         this.nome = nome;
     }
 
-    public Estado getIdEstado() {
-        return idEstado;
+    public Estado getEstado() {
+        return Estado;
     }
 
-    public void setIdEstado(Estado idEstado) {
-        this.idEstado = idEstado;
+    public void setEstado(Estado Estado) {
+        this.Estado = Estado;
     }
 
     public List<Contato> getContatoList() {
