@@ -7,7 +7,7 @@
 package br.ufms.facom.progweb.syscontato.model;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,8 +23,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,7 +30,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "cidade")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cidade.findAll", query = "SELECT c FROM Cidade c"),
     @NamedQuery(name = "Cidade.findByIdCidade", query = "SELECT c FROM Cidade c WHERE c.idCidade = :idCidade"),
@@ -53,7 +50,7 @@ public class Cidade implements Serializable {
     @ManyToOne(optional = false)
     private Estado idEstado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCidade")
-    private Set<Contato> contatoSet;
+    private List<Contato> contatoList;
 
     public Cidade() {
     }
@@ -91,13 +88,12 @@ public class Cidade implements Serializable {
         this.idEstado = idEstado;
     }
 
-    @XmlTransient
-    public Set<Contato> getContatoSet() {
-        return contatoSet;
+    public List<Contato> getContatoList() {
+        return contatoList;
     }
 
-    public void setContatoSet(Set<Contato> contatoSet) {
-        this.contatoSet = contatoSet;
+    public void setContatoList(List<Contato> contatoList) {
+        this.contatoList = contatoList;
     }
 
     @Override

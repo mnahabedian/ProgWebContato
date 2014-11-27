@@ -7,7 +7,7 @@
 package br.ufms.facom.progweb.syscontato.model;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,8 +21,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,7 +28,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "estado")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Estado.findAll", query = "SELECT e FROM Estado e"),
     @NamedQuery(name = "Estado.findByIdEstado", query = "SELECT e FROM Estado e WHERE e.idEstado = :idEstado"),
@@ -54,7 +51,7 @@ public class Estado implements Serializable {
     @Column(name = "nome")
     private String nome;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstado")
-    private Set<Cidade> cidadeSet;
+    private List<Cidade> cidadeList;
 
     public Estado() {
     }
@@ -93,13 +90,12 @@ public class Estado implements Serializable {
         this.nome = nome;
     }
 
-    @XmlTransient
-    public Set<Cidade> getCidadeSet() {
-        return cidadeSet;
+    public List<Cidade> getCidadeList() {
+        return cidadeList;
     }
 
-    public void setCidadeSet(Set<Cidade> cidadeSet) {
-        this.cidadeSet = cidadeSet;
+    public void setCidadeList(List<Cidade> cidadeList) {
+        this.cidadeList = cidadeList;
     }
 
     @Override

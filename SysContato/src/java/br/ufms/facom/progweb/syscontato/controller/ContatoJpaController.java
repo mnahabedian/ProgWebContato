@@ -49,7 +49,7 @@ public class ContatoJpaController implements Serializable {
             }
             em.persist(contato);
             if (idCidade != null) {
-                idCidade.getContatoSet().add(contato);
+                idCidade.getContatoList().add(contato);
                 idCidade = em.merge(idCidade);
             }
             utx.commit();
@@ -81,11 +81,11 @@ public class ContatoJpaController implements Serializable {
             }
             contato = em.merge(contato);
             if (idCidadeOld != null && !idCidadeOld.equals(idCidadeNew)) {
-                idCidadeOld.getContatoSet().remove(contato);
+                idCidadeOld.getContatoList().remove(contato);
                 idCidadeOld = em.merge(idCidadeOld);
             }
             if (idCidadeNew != null && !idCidadeNew.equals(idCidadeOld)) {
-                idCidadeNew.getContatoSet().add(contato);
+                idCidadeNew.getContatoList().add(contato);
                 idCidadeNew = em.merge(idCidadeNew);
             }
             utx.commit();
@@ -124,7 +124,7 @@ public class ContatoJpaController implements Serializable {
             }
             Cidade idCidade = contato.getIdCidade();
             if (idCidade != null) {
-                idCidade.getContatoSet().remove(contato);
+                idCidade.getContatoList().remove(contato);
                 idCidade = em.merge(idCidade);
             }
             em.remove(contato);

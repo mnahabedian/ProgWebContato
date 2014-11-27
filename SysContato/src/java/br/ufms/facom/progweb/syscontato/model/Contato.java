@@ -7,7 +7,11 @@
 package br.ufms.facom.progweb.syscontato.model;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +27,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -31,7 +34,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "contato")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Contato.findAll", query = "SELECT c FROM Contato c"),
     @NamedQuery(name = "Contato.findByIdContato", query = "SELECT c FROM Contato c WHERE c.idContato = :idContato"),
@@ -131,6 +133,15 @@ public class Contato implements Serializable {
 
     public void setDataNasc(Date dataNasc) {
         this.dataNasc = dataNasc;
+    }
+
+    public void setDataNasc(String dataNasc) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            this.dataNasc = sdf.parse(dataNasc);
+        } catch (ParseException ex) {
+            Logger.getLogger(Contato.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public String getCel() {

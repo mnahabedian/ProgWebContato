@@ -3,7 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/joshua/Documents/NetBeansProjects/aula12112014/AulaDeHoje_12112014/src/java/br/ufms/classes/ConnectionDB.java</file>
+            <file>file:/C:/Users/joshua/Documents/GitHub/ProgWebContato/AulaDeHoje_12112014/src/java/br/ufms/classes/Contato.java</file>
+            <file>file:/C:/Users/joshua/Documents/GitHub/ProgWebContato/AulaDeHoje_12112014/src/java/br/ufms/classes/ContatoCRUDServlet.java</file>
         </group>
     </open-files>
 </project-private>
