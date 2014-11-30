@@ -15,8 +15,8 @@
         <link href="style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <img src="images/logout.png" width="64" height="64" alt="Sair" class="box" onclick="window.location='logout.jsp';">
-        <br />
-        <h1>Permissão Negada!!!</h1>
+        <script>
+            window.location="ContatoCRUDServlet?action=read&option=list";
+        </script>
     </body>
 </html>

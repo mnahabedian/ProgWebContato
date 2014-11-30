@@ -15,8 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -31,48 +29,45 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author joshua
  */
 @Entity
-@Table(name = "cidade")
+@Table(name = "operadora")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Cidade.findAll", query = "SELECT c FROM Cidade c"),
-    @NamedQuery(name = "Cidade.findByIdCidade", query = "SELECT c FROM Cidade c WHERE c.idCidade = :idCidade"),
-    @NamedQuery(name = "Cidade.findByNome", query = "SELECT c FROM Cidade c WHERE c.nome = :nome")})
-public class Cidade implements Serializable {
+    @NamedQuery(name = "Operadora.findAll", query = "SELECT o FROM Operadora o"),
+    @NamedQuery(name = "Operadora.findByIdOperadora", query = "SELECT o FROM Operadora o WHERE o.idOperadora = :idOperadora"),
+    @NamedQuery(name = "Operadora.findByNome", query = "SELECT o FROM Operadora o WHERE o.nome = :nome")})
+public class Operadora implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id_cidade")
-    private Integer idCidade;
+    @Column(name = "id_operadora")
+    private Integer idOperadora;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 128)
+    @Size(min = 1, max = 32)
     @Column(name = "nome")
     private String nome;
-    @JoinColumn(name = "id_estado", referencedColumnName = "id_estado")
-    @ManyToOne(optional = false)
-    private Estado estado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cidade")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "operadora")
     private List<Contato> contatoList;
 
-    public Cidade() {
+    public Operadora() {
     }
 
-    public Cidade(Integer idCidade) {
-        this.idCidade = idCidade;
+    public Operadora(Integer idOperadora) {
+        this.idOperadora = idOperadora;
     }
 
-    public Cidade(Integer idCidade, String nome) {
-        this.idCidade = idCidade;
+    public Operadora(Integer idOperadora, String nome) {
+        this.idOperadora = idOperadora;
         this.nome = nome;
     }
 
-    public Integer getIdCidade() {
-        return idCidade;
+    public Integer getIdOperadora() {
+        return idOperadora;
     }
 
-    public void setIdCidade(Integer idCidade) {
-        this.idCidade = idCidade;
+    public void setIdOperadora(Integer idOperadora) {
+        this.idOperadora = idOperadora;
     }
 
     public String getNome() {
@@ -81,18 +76,6 @@ public class Cidade implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public Estado getEstado() {
-        return estado;
-    }
-
-    public Integer getIdEstado() {
-        return estado.getIdEstado();
-    }
-
-    public void setEstado(Estado estado) {
-        this.estado = estado;
     }
 
     @XmlTransient
@@ -107,18 +90,18 @@ public class Cidade implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idCidade != null ? idCidade.hashCode() : 0);
+        hash += (idOperadora != null ? idOperadora.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cidade)) {
+        if (!(object instanceof Operadora)) {
             return false;
         }
-        Cidade other = (Cidade) object;
-        if ((this.idCidade == null && other.idCidade != null) || (this.idCidade != null && !this.idCidade.equals(other.idCidade))) {
+        Operadora other = (Operadora) object;
+        if ((this.idOperadora == null && other.idOperadora != null) || (this.idOperadora != null && !this.idOperadora.equals(other.idOperadora))) {
             return false;
         }
         return true;
@@ -126,7 +109,7 @@ public class Cidade implements Serializable {
 
     @Override
     public String toString() {
-        return "br.ufms.facom.progweb.syscontato.model.Cidade[ idCidade=" + idCidade + " ]";
+        return "br.ufms.facom.progweb.syscontato.model.Operadora[ idOperadora=" + idOperadora + " ]";
     }
     
 }

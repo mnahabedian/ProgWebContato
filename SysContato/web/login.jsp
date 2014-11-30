@@ -17,7 +17,7 @@
                 <label>Login:</label><input type="text" autofocus required id="login" name="login" title="Digite o Login" maxlength="32" value="" /><br/>
                 <label>Senha:</label><input type="password" required id="senha" name="senha" title="Digite a Senha" maxlength="32" value="" /><br/>
                 <br />
-                <input type="image" src="img/login.png" width="64" height="64" title="Login" class="box" onclick="criptografaSenha();" />
+                <input type="image" src="images/login.png" width="64" height="64" title="Login" class="box" onclick="criptografaSenha();" />
             </form>
         </section>
     

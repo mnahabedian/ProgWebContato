@@ -21,6 +21,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,6 +30,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "estado")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Estado.findAll", query = "SELECT e FROM Estado e"),
     @NamedQuery(name = "Estado.findByIdEstado", query = "SELECT e FROM Estado e WHERE e.idEstado = :idEstado"),
@@ -50,7 +53,7 @@ public class Estado implements Serializable {
     @Size(min = 1, max = 64)
     @Column(name = "nome")
     private String nome;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Estado")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estado")
     private List<Cidade> cidadeList;
 
     public Estado() {
@@ -90,6 +93,7 @@ public class Estado implements Serializable {
         this.nome = nome;
     }
 
+    @XmlTransient
     public List<Cidade> getCidadeList() {
         return cidadeList;
     }

@@ -9,6 +9,20 @@
         <servlet-name>SessionServlet</servlet-name>
         <servlet-class>br.ufms.facom.progweb.syscontato.servlet.SessionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FileUploadServlet</servlet-name>
+        <servlet-class>br.ufms.facom.progweb.syscontato.servlet.FileUploadServlet</servlet-class>
+        <multipart-config>
+            <location/>
+            <max-file-size>2097152</max-file-size>
+            <max-request-size>4194304</max-request-size>
+            <file-size-threshold>1048576</file-size-threshold>
+        </multipart-config>
+    </servlet>
+    <servlet>
+        <servlet-name>CidadeServlet</servlet-name>
+        <servlet-class>br.ufms.facom.progweb.syscontato.servlet.CidadeServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ContatoCRUDServlet</servlet-name>
         <url-pattern>/ContatoCRUDServlet</url-pattern>
@@ -17,8 +31,16 @@
         <servlet-name>SessionServlet</servlet-name>
         <url-pattern>/SessionServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FileUploadServlet</servlet-name>
+        <url-pattern>/FileUploadServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CidadeServlet</servlet-name>
+        <url-pattern>/CidadeServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
-        <session-timeout>60</session-timeout>
+        <session-timeout>120</session-timeout>
     </session-config>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

@@ -5,6 +5,7 @@
     <class>br.ufms.facom.progweb.syscontato.model.Cidade</class>
     <class>br.ufms.facom.progweb.syscontato.model.Contato</class>
     <class>br.ufms.facom.progweb.syscontato.model.Estado</class>
+    <class>br.ufms.facom.progweb.syscontato.model.Operadora</class>
     <class>br.ufms.facom.progweb.syscontato.model.Usuario</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <validation-mode>NONE</validation-mode>

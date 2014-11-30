@@ -15,4 +15,15 @@
                 SysContatos
             </h1>
         </header>
+        <h1 <c:choose>
+            <c:when test="${msg_tipo == 'error'}">
+                style="color: red;"
+            </c:when>
+            <c:when test="${msg_tipo == 'warning'}">
+                style="color: yellow;"
+            </c:when>
+            <c:otherwise>
+                style="color: green;"
+            </c:otherwise>
+        </c:choose>>${msg}</h1>
         

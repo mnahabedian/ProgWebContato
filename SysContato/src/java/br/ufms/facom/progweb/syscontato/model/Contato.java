@@ -27,6 +27,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -34,13 +35,13 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "contato")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Contato.findAll", query = "SELECT c FROM Contato c"),
     @NamedQuery(name = "Contato.findByIdContato", query = "SELECT c FROM Contato c WHERE c.idContato = :idContato"),
     @NamedQuery(name = "Contato.findByNome", query = "SELECT c FROM Contato c WHERE c.nome = :nome"),
     @NamedQuery(name = "Contato.findByDataNasc", query = "SELECT c FROM Contato c WHERE c.dataNasc = :dataNasc"),
     @NamedQuery(name = "Contato.findByCel", query = "SELECT c FROM Contato c WHERE c.cel = :cel"),
-    @NamedQuery(name = "Contato.findByOperadoraCel", query = "SELECT c FROM Contato c WHERE c.operadoraCel = :operadoraCel"),
     @NamedQuery(name = "Contato.findByEmail", query = "SELECT c FROM Contato c WHERE c.email = :email"),
     @NamedQuery(name = "Contato.findByFacebook", query = "SELECT c FROM Contato c WHERE c.facebook = :facebook"),
     @NamedQuery(name = "Contato.findByTwitter", query = "SELECT c FROM Contato c WHERE c.twitter = :twitter"),
@@ -68,11 +69,6 @@ public class Contato implements Serializable {
     @Size(min = 1, max = 32)
     @Column(name = "cel")
     private String cel;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 32)
-    @Column(name = "operadora_cel")
-    private String operadoraCel;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="E-mail inválido")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
@@ -91,6 +87,9 @@ public class Contato implements Serializable {
     @Size(max = 256)
     @Column(name = "foto")
     private String foto;
+    @JoinColumn(name = "id_operadora", referencedColumnName = "id_operadora")
+    @ManyToOne(optional = false)
+    private Operadora operadora;
     @JoinColumn(name = "id_cidade", referencedColumnName = "id_cidade")
     @ManyToOne(optional = false)
     private Cidade cidade;
@@ -102,12 +101,11 @@ public class Contato implements Serializable {
         this.idContato = idContato;
     }
 
-    public Contato(Integer idContato, String nome, Date dataNasc, String cel, String operadoraCel, String email) {
+    public Contato(Integer idContato, String nome, Date dataNasc, String cel, String email) {
         this.idContato = idContato;
         this.nome = nome;
         this.dataNasc = dataNasc;
         this.cel = cel;
-        this.operadoraCel = operadoraCel;
         this.email = email;
     }
 
@@ -157,14 +155,6 @@ public class Contato implements Serializable {
         this.cel = cel;
     }
 
-    public String getOperadoraCel() {
-        return operadoraCel;
-    }
-
-    public void setOperadoraCel(String operadoraCel) {
-        this.operadoraCel = operadoraCel;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -205,16 +195,32 @@ public class Contato implements Serializable {
         this.foto = foto;
     }
 
+    public Operadora getOperadora() {
+        return operadora;
+    }
+
+    public Integer getIdOperadora() {
+        return operadora.getIdOperadora();
+    }
+
+    public void setOperadora(Operadora operadora) {
+        this.operadora = operadora;
+    }
+
     public Cidade getCidade() {
         return cidade;
     }
 
-    public int getIdCidade() {
+    public Integer getIdCidade() {
         return cidade.getIdCidade();
     }
 
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
+    }
+    
+    public boolean validar() {
+        return true;
     }
 
     @Override

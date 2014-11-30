@@ -13,6 +13,7 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import br.ufms.facom.progweb.syscontato.model.Operadora;
 import br.ufms.facom.progweb.syscontato.model.Cidade;
 import br.ufms.facom.progweb.syscontato.model.Contato;
 import java.util.List;
@@ -42,12 +43,21 @@ public class ContatoJpaController implements Serializable {
         try {
             utx.begin();
             em = getEntityManager();
+            Operadora idOperadora = contato.getOperadora();
+            if (idOperadora != null) {
+                idOperadora = em.getReference(idOperadora.getClass(), idOperadora.getIdOperadora());
+                contato.setOperadora(idOperadora);
+            }
             Cidade idCidade = contato.getCidade();
             if (idCidade != null) {
                 idCidade = em.getReference(idCidade.getClass(), idCidade.getIdCidade());
                 contato.setCidade(idCidade);
             }
             em.persist(contato);
+            if (idOperadora != null) {
+                idOperadora.getContatoList().add(contato);
+                idOperadora = em.merge(idOperadora);
+            }
             if (idCidade != null) {
                 idCidade.getContatoList().add(contato);
                 idCidade = em.merge(idCidade);
@@ -73,13 +83,27 @@ public class ContatoJpaController implements Serializable {
             utx.begin();
             em = getEntityManager();
             Contato persistentContato = em.find(Contato.class, contato.getIdContato());
+            Operadora idOperadoraOld = persistentContato.getOperadora();
+            Operadora idOperadoraNew = contato.getOperadora();
             Cidade idCidadeOld = persistentContato.getCidade();
             Cidade idCidadeNew = contato.getCidade();
+            if (idOperadoraNew != null) {
+                idOperadoraNew = em.getReference(idOperadoraNew.getClass(), idOperadoraNew.getIdOperadora());
+                contato.setOperadora(idOperadoraNew);
+            }
             if (idCidadeNew != null) {
                 idCidadeNew = em.getReference(idCidadeNew.getClass(), idCidadeNew.getIdCidade());
                 contato.setCidade(idCidadeNew);
             }
             contato = em.merge(contato);
+            if (idOperadoraOld != null && !idOperadoraOld.equals(idOperadoraNew)) {
+                idOperadoraOld.getContatoList().remove(contato);
+                idOperadoraOld = em.merge(idOperadoraOld);
+            }
+            if (idOperadoraNew != null && !idOperadoraNew.equals(idOperadoraOld)) {
+                idOperadoraNew.getContatoList().add(contato);
+                idOperadoraNew = em.merge(idOperadoraNew);
+            }
             if (idCidadeOld != null && !idCidadeOld.equals(idCidadeNew)) {
                 idCidadeOld.getContatoList().remove(contato);
                 idCidadeOld = em.merge(idCidadeOld);
@@ -121,6 +145,11 @@ public class ContatoJpaController implements Serializable {
                 contato.getIdContato();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The contato with id " + id + " no longer exists.", enfe);
+            }
+            Operadora idOperadora = contato.getOperadora();
+            if (idOperadora != null) {
+                idOperadora.getContatoList().remove(contato);
+                idOperadora = em.merge(idOperadora);
             }
             Cidade idCidade = contato.getCidade();
             if (idCidade != null) {
