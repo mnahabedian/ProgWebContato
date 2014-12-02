@@ -7,7 +7,7 @@
         <script>window.location="denied.jsp";</script>
     </c:if>
             
-        <fieldset class="row panel large-5">
+        <fieldset class="row panel large-5 radius">
             <div class="large-12 column">
                 <form action="FileUploadServlet" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="${contato.idContato}"/>
@@ -16,7 +16,7 @@
                     <legend>Foto do Contato: ${contato.nome}</legend>
                     <input class="button secondary" type="file" id="foto" name="foto" />
 
-                    <ul class="button-group">
+                    <ul class="button-group radius">
                         <li class="large-6"><input class="button success large-12" type="submit" value="Salvar" title="Salvar" onclick="validar();" /></li>
                         <li class="large-6"><input class="button alert large-12" type="button" value="Cancelar" title="Cancelar" onclick="window.history.go(-1)" /></li>
                     </ul>

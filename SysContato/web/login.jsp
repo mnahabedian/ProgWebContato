@@ -12,15 +12,22 @@
             }            
         </script>
         
-        <fieldset class="row panel large-3">
+        <fieldset class="row panel large-3 radius">
             <div class="large-12 column">
                 <form id="loginForm" action="SessionServlet" method="post">
                     <input type="hidden" name="action" value="login"/>
-                    <label class="label">Login:</label>
-                    <input type="text" autofocus required id="login" name="login" title="Digite o Login" maxlength="32" value="" />
-                    <label class="label">Senha:</label>
-                    <input type="password" required id="senha" name="senha" title="Digite a Senha" maxlength="32" value="" />
-                    <input class="button expand" type="button" value="Entrar" title="Login" onclick="criptografaSenha();" />
+                    
+                    <label class="label">Login</label>
+                    <span data-tooltip aria-haspopup="true" class="has-tip tip-top" title="Digite seu login.">
+                        <input type="text" autofocus required id="login" name="login" maxlength="32" value="" />
+                    </span>
+                    
+                    <label class="label">Senha</label>
+                    <span data-tooltip aria-haspopup="true" class="has-tip tip-top" title="Digite sua Senha.">
+                        <input type="password" required id="senha" name="senha" maxlength="32" value="" />
+                    </span>
+                    
+                    <input class="button expand radius" type="button" value="Entrar" title="Login" onclick="criptografaSenha();" />
                     <!--<input type="image" src="images/login.png" width="64" height="64" title="Login" class="box" onclick="criptografaSenha();" />-->
                 </form>
             </div>

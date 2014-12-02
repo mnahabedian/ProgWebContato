@@ -24,7 +24,7 @@
         <c:choose>
         <c:when test="${msg_tipo == 'error'}">
             <div class="row large-12">
-                <div data-alert class="alert-box alert"
+                <div data-alert class="alert-box alert radius">
                     <span>${msg}</span>
                     <a href="#" class="close">&times;</a>                    
                 </div>
@@ -32,7 +32,7 @@
         </c:when>
         <c:when test="${msg_tipo == 'warning'}">
             <div class="row large-12">
-                <div data-alert class="alert-box warning"
+                <div data-alert class="alert-box warning radius">
                     <span>${msg}</span>
                     <a href="#" class="close">&times;</a>
                 </div>
@@ -40,7 +40,7 @@
         </c:when>
         <c:when test="${msg_tipo == 'success'}">
             <div class="row large-12">
-                <div data-alert class="alert-box success"
+                <div data-alert class="alert-box success radius">
                     <span>${msg}</span>
                     <a href="#" class="close">&times;</a>
                 </div>

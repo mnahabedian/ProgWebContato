@@ -7,7 +7,7 @@
         <script>window.location="denied.jsp";</script>
     </c:if>
 
-    <section class="row panel large-5">
+    <section class="row panel large-5 radius">
 
         <fieldset class="large-12 column">
             <legend><h3 class="centered">Dados</h3></legend>
@@ -23,7 +23,7 @@
                                 <a class="button prefix" for="nome">Nome</a>
                             </div>
                             <div class="small-10 columns">
-                                <input type="text" autofocus required id="nome" name="nome" title="Digite o Nome" maxlength="128" value="${contato.nome}" />
+                                <input type="text" autofocus required id="nome" name="nome" maxlength="128" value="${contato.nome}" />
                             </div>
                           </div>
                         </div>                
@@ -36,7 +36,7 @@
                                 <a class="button prefix" for="dataNasc">Nascimento</a>
                             </div>
                             <div class="small-10 columns">
-                                <input type="date" required id="dataNasc" name="dataNasc" title="Digite a Data de Nascimento (dia-mês-ano)" pattern="^(0[1-9]|[12][0-9]|3[01])(-)(0[1-9]|1[012])(-)(19|20)\d\d$" maxlength="10" min="1900-01-01" value="${contato.strDataNasc}" />
+                                <input type="date" required id="dataNasc" name="dataNasc" pattern="^(0[1-9]|[12][0-9]|3[01])(-)(0[1-9]|1[012])(-)(19|20)\d\d$" maxlength="10" min="1900-01-01" value="${contato.strDataNasc}" />
                             </div>
                           </div>
                         </div>                
@@ -49,7 +49,7 @@
                                 <a class="button prefix" for="cel">Celular</a>
                             </div>
                             <div class="small-10 columns">
-                                <input type="text" required id="cel" name="cel" title="Digite o Número do Celular" pattern="^[0-9]{2}[ ]{1}[0-9]{4,5}[-]{1}[0-9]{4}$" placeholder="99 99999-9999" maxlength="32" value="${contato.cel}" />
+                                <input type="text" required id="cel" name="cel" pattern="^[0-9]{2}[ ]{1}[0-9]{4,5}[-]{1}[0-9]{4}$" placeholder="99 99999-9999" maxlength="32" value="${contato.cel}" />
                             </div>
                           </div>
                         </div>                
@@ -62,7 +62,7 @@
                                 <a class="button prefix" for="idOperadora">Operadora</a>
                             </div>
                             <div class="small-10 columns">
-                                <select required id="idOperadora" name="idOperadora" title="Selecione a Operadora do Celular">
+                                <select required id="idOperadora" name="idOperadora" >
                                     <c:forEach var="operadora" items="${operadoras}">
                                         <option value="${operadora.idOperadora}" <c:if test="${contato.idOperadora == operadora.idOperadora}">selected</c:if> >${operadora.nome}</option>
                                     </c:forEach>
@@ -79,7 +79,7 @@
                                 <a class="button prefix" for="idEstado">Estado</a>
                             </div>
                             <div class="small-10 columns">
-                                <select required id="idEstado" name="idEstado" title="Selecione o Estado" onchange="dropdownCidade(this.value)">
+                                <select required id="idEstado" name="idEstado" onchange="dropdownCidade(this.value)">
                                     <c:forEach var="estado" items="${estados}">
                                         <option value="${estado.idEstado}" <c:if test="${contato.cidade.idEstado == estado.idEstado}">selected</c:if> >${estado.sigla}</option>
                                     </c:forEach>
@@ -96,7 +96,7 @@
                                 <a class="button prefix" for="idCidade">Cidade</a>
                             </div>
                             <div class="small-10 columns">
-                                <select required id="idCidade" name="idCidade" title="Selecione a Cidade">
+                                <select required id="idCidade" name="idCidade" >
                                     <c:forEach var="cidade" items="${cidades}">
                                         <option value="${cidade.idCidade}" <c:if test="${contato.idCidade == cidade.idCidade}">selected</c:if> >${cidade.nome}</option>
                                     </c:forEach>
@@ -167,7 +167,7 @@
                         </div>                
                     </div>
 
-                    <ul class="button-group">
+                    <ul class="button-group radius">
                         <li class="large-6"><input class="button success large-12" type="submit" value="Editar" title="Editar" onclick="validar();" /></li>
                         <li class="large-6"><input class="button alert large-12" type="button" value="Cancelar" title="Cancelar" onclick="window.history.go(-1)" /></li>
                     </ul>

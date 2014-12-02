@@ -7,7 +7,7 @@
         <script>window.location="denied.jsp";</script>
     </c:if>
 
-        <section class="row panel large-12">
+        <section class="row panel large-12 radius">
             
             <div class="row large-12">
                 <c:if test="${create == 1}">
