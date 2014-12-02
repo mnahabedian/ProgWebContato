@@ -11,7 +11,7 @@
 
         <fieldset class="large-12 column">
             <legend><h3 class="centered">Dados</h3></legend>
-            <form action="ContatoCRUDServlet" method="post">
+            <form action="ContatoCRUDServlet" method="post" onsubmit="validar();">
                 <input type="hidden" id="action" name="action" value="update" />
                 <input type="hidden" id="option" name="option" value="ok" />
                 <input type="hidden" name="id" value="${contato.idContato}"/>
@@ -168,7 +168,7 @@
                     </div>
 
                     <ul class="button-group radius">
-                        <li class="large-6"><input class="button success large-12" type="submit" value="Editar" title="Editar" onclick="validar();" /></li>
+                        <li class="large-6"><input class="button success large-12" type="submit" value="Editar" title="Editar" /></li>
                         <li class="large-6"><input class="button alert large-12" type="button" value="Cancelar" title="Cancelar" onclick="window.history.go(-1)" /></li>
                     </ul>
 

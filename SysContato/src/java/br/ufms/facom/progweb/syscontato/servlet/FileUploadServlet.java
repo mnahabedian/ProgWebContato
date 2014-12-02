@@ -91,7 +91,7 @@ public class FileUploadServlet extends HttpServlet {
                     Logger.getLogger(FileUploadServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-                request.getSession().setAttribute("msg_tipo", "warning");
+                request.getSession().setAttribute("msg_tipo", "notice");
                 request.getSession().setAttribute("msg", "Foto Salva com Sucesso!!!");
                 request.getSession().setAttribute("msg_show", "1");
                 
@@ -111,7 +111,6 @@ public class FileUploadServlet extends HttpServlet {
                     fileContent.close();
                 }
             }
-            //session.setAttribute("photo_path", "images/temp/" + session.getId() + ".jpg");            
         }
     }
     

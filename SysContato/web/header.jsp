@@ -38,15 +38,13 @@
                 </div>
             </div>                
         </c:when>
-        <c:when test="${msg_tipo == 'success'}">
+        <c:otherwise>
             <div class="row large-12">
                 <div data-alert class="alert-box success radius">
                     <span>${msg}</span>
                     <a href="#" class="close">&times;</a>
                 </div>
             </div>                
-        </c:when>
-        <c:otherwise>
         </c:otherwise>
         </c:choose> 
 
