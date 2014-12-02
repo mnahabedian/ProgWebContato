@@ -3,9 +3,89 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+var nome;
+var dtNasc;
+var dtTeste;
+var facebook;
+var twitter;
+var site;
+
+function enviar() {
+    alert("Enviei...");
+    
+    submit();
+    
+    return true;
+}
 
 function validar() {
-    submit();
+    facebook = document.getElementById("facebook");
+    if(facebook.value != "" && !verificaFacebook(facebook.value)){
+        facebook.setCustomValidity('Preencha o campo corretamente!\nExemplo: https://www.facebook.com/xxxxxxx');
+    }
+    else{
+        facebook.setCustomValidity('');
+    }
+    
+    twitter = document.getElementById("twitter");
+    if(twitter.value != "" && !verificaTwitter(twitter.value)){
+        twitter.setCustomValidity('Preencha o campo corretamente!\nExemplo: https://twitter.com/xxxxxxx');
+    }
+    else{
+        twitter.setCustomValidity('');
+    }
+    
+    site = document.getElementById("site");
+    if(site.value != "" && !verificaSite(site.value)){
+        site.setCustomValidity('Preencha o campo corretamente!\nExemplo: http(s)://xxxxxxxxxxx');
+    }
+    else{
+        site.setCustomValidity('');
+    }
+}
+
+function verificaFacebook(endereco){
+    maskFace = "https://www.facebook.com/";
+    if(endereco.length > maskFace.length){
+        for(i = 0; i < maskFace.length; i++){
+            if(endereco[i] != maskFace[i])
+                return false;
+        }
+    }
+    else
+        return false;
+    
+    return true;
+}
+
+function verificaTwitter(endereco){
+    maskTwitter = "https://twitter.com/";
+    if(endereco.length > maskTwitter.length){
+        for(i = 0; i < maskTwitter.length; i++){
+            if(endereco[i] != maskTwitter[i])
+                return false;
+        }
+    }
+    else
+        return false;
+    
+    return true;
+}
+
+function verificaSite(endereco){
+    maskSite = "http://";
+    maskSite2 = "https://";
+    max = maskSite.length;
+    if(endereco.length > maskSite2.length){
+        for(i = 0; i < max; i++){
+            if(endereco[i] != maskSite[i] && endereco[i] != maskSite2[i])
+                return false;
+            if(endereco[i] != maskSite[i])
+                max = maskSite2.length;
+        }
+    }
+    else
+        return false;
     
     return true;
 }

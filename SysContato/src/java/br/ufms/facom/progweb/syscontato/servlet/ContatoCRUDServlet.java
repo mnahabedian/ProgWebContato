@@ -62,7 +62,6 @@ public class ContatoCRUDServlet extends HttpServlet {
             throws ServletException, IOException{
         RequestDispatcher rd;
         
-        int i;
         if (request.getSession().getAttribute("msg_show") != null) {
             request.getSession().setAttribute("msg_show", null);
         }
@@ -145,15 +144,22 @@ public class ContatoCRUDServlet extends HttpServlet {
                         contato.setTwitter(request.getParameter("twitter"));
                         contato.setSite(request.getParameter("site"));
                         
-                        try {
-                            contatoJpaController.create(contato);
-                        } catch (Exception ex) {
-                            Logger.getLogger(ContatoCRUDServlet.class.getName()).log(Level.SEVERE, null, ex);
+                        if(contato.validar(contato)){
+                            try {
+                                contatoJpaController.create(contato);
+                            } catch (Exception ex) {
+                                Logger.getLogger(ContatoCRUDServlet.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+
+                            request.getSession().setAttribute("msg_tipo", "notice");
+                            request.getSession().setAttribute("msg", "Contato Incluído com Sucesso!!!");
+                            request.getSession().setAttribute("msg_show", "1");
                         }
-                        
-                        request.getSession().setAttribute("msg_tipo", "notice");
-                        request.getSession().setAttribute("msg", "Contato Incluído com Sucesso!!!");
-                        request.getSession().setAttribute("msg_show", "1");
+                        else{
+                            request.getSession().setAttribute("msg_tipo", "error");
+                            request.getSession().setAttribute("msg", "ERROR! O contato não foi Salvo!!! Tente Novamente.");
+                            request.getSession().setAttribute("msg_show", "1");
+                        }
                         
                         rd = request.getRequestDispatcher("default.jsp");
                         rd.forward(request, response);
@@ -227,17 +233,25 @@ public class ContatoCRUDServlet extends HttpServlet {
                         contato.setTwitter(request.getParameter("twitter"));
                         contato.setSite(request.getParameter("site"));
                         
-                        try {
-                            contatoJpaController.edit(contato);
-                        } catch (RollbackFailureException ex) {
-                            Logger.getLogger(FileUploadServlet.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (Exception ex) {
-                            Logger.getLogger(FileUploadServlet.class.getName()).log(Level.SEVERE, null, ex);
-                        }                    
+                        if(contato.validar(contato)){
+                            try {
+                                contatoJpaController.edit(contato);
+                            } catch (RollbackFailureException ex) {
+                                Logger.getLogger(FileUploadServlet.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (Exception ex) {
+                                Logger.getLogger(FileUploadServlet.class.getName()).log(Level.SEVERE, null, ex);
+                            }                    
                         
-                        request.getSession().setAttribute("msg_tipo", "notice");
-                        request.getSession().setAttribute("msg", "Contato Alterado com Sucesso!!!");
-                        request.getSession().setAttribute("msg_show", "1");
+                            request.getSession().setAttribute("msg_tipo", "notice");
+                            request.getSession().setAttribute("msg", "Contato Alterado com Sucesso!!!");
+                            request.getSession().setAttribute("msg_show", "1");
+                        }
+                        else{
+                            request.getSession().setAttribute("msg_tipo", "error");
+                            request.getSession().setAttribute("msg", "ERROR! O contato não foi Atualizado!!! Tente Novamente.");
+                            request.getSession().setAttribute("msg_show", "1");
+                        }
+                        
 
                         rd = request.getRequestDispatcher("default.jsp");
                         rd.forward(request, response);
@@ -261,10 +275,19 @@ public class ContatoCRUDServlet extends HttpServlet {
                     case "ok":
                         try {
                             contatoJpaController.destroy(Integer.parseInt(request.getParameter("id")));
+                            request.getSession().setAttribute("msg_tipo", "notice");
+                            request.getSession().setAttribute("msg", "Contato Excluído com Sucesso!!!");
+                            request.getSession().setAttribute("msg_show", "1");
                         } catch (RollbackFailureException ex) {
                             Logger.getLogger(ContatoCRUDServlet.class.getName()).log(Level.SEVERE, null, ex);
+                            request.getSession().setAttribute("msg_tipo", "error");
+                            request.getSession().setAttribute("msg", "ERROR! O contato não foi Excluído!!! Tente novamente.");
+                            request.getSession().setAttribute("msg_show", "1");
                         } catch (Exception ex) {
                             Logger.getLogger(ContatoCRUDServlet.class.getName()).log(Level.SEVERE, null, ex);
+                            request.getSession().setAttribute("msg_tipo", "error");
+                            request.getSession().setAttribute("msg", "ERROR! O contato não foi Excluído!!! Tente novamente.");
+                            request.getSession().setAttribute("msg_show", "1");
                         }
                         
                         response.setContentType("text/html;charset=windows-1252");

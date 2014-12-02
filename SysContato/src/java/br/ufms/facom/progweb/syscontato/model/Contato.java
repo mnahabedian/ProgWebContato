@@ -7,6 +7,7 @@
 package br.ufms.facom.progweb.syscontato.model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -219,8 +220,70 @@ public class Contato implements Serializable {
         this.cidade = cidade;
     }
     
-    public boolean validar() {
+    public boolean validar(Contato contato) {
+        if(contato.nome.isEmpty()
+                || contato.dataNasc == null
+                || contato.cel.isEmpty()
+                || contato.operadora == null
+                || contato.cidade == null
+                || contato.cidade.getEstado()== null
+                || contato.email.isEmpty()
+                || !contato.email.contains("@")
+                || verificaData(contato.dataNasc)){
+            return false;
+        }
+        return verificaFacebook(contato.facebook) && verificaTwitter(contato.twitter) && verificaSite(contato.site);
+    }
+    
+    public boolean verificaFacebook(String face){
+        String maskFace = "https://www.facebook.com/";
+        
+        if(face.length() > maskFace.length()){
+            for(int i = 0; i < maskFace.length(); i++){
+                if(face.charAt(i) != maskFace.charAt(i))
+                    return false;
+            }
+        }
+        else if(!face.isEmpty() && face.length() < maskFace.length()){
+            return false;
+        }
         return true;
+    }
+
+    public boolean verificaTwitter(String twitter){
+        String maskTwitter = "https://twitter.com/";
+        if(twitter.length() > maskTwitter.length()){
+            for(int i = 0; i < maskTwitter.length(); i++){
+                if(twitter.charAt(i) != maskTwitter.charAt(i))
+                    return false;
+            }
+        }
+        else if(!twitter.isEmpty() && twitter.length() < maskTwitter.length())
+            return false;
+        
+        return true;
+    }
+    
+    public boolean verificaSite(String site){
+        String maskSite = "http://";
+        String maskSite2 = "https://";
+        int max = maskSite.length();
+        if(site.length() > maskSite2.length()){
+            for(int i = 0; i < max; i++){
+                if(site.charAt(i) != maskSite.charAt(i) && site.charAt(i) != maskSite2.charAt(i))
+                    return false;
+            }
+        }
+        else if(!site.isEmpty() && site.length() < maskSite.length())
+            return false;
+        
+        return true;
+    }
+    
+    public boolean verificaData(Date data){
+        Date hoje = new Date();
+        hoje.getTime();
+        return hoje.before(data);
     }
 
     @Override

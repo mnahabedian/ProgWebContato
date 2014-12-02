@@ -7,7 +7,7 @@
         <script>window.location="denied.jsp";</script>
     </c:if>
         
-        <form action="ContatoCRUDServlet" method="post">
+        <form action="ContatoCRUDServlet" method="post" onsubmit="return validar()">
             <input type="hidden" id="action" name="action" value="create" />
             <input type="hidden" id="option" name="option" value="ok" />
             
@@ -39,8 +39,9 @@
             <label>Twitter:</label><input type="text" id="twitter" name="twitter" maxlength="256" value="" /><br />
             <label>Site:</label><input type="text" id="site" name="site" maxlength="256" value="" /><br />
             <br />
-            <input type="image" src="images/insert.png" width="64" height="64" title="Incluir" class="box" onclick="validar();" />
+            <input type="image" src="images/insert.png" width="64" height="64" title="Incluir" class="box" onclick="validar()" />
             <input type="image" src="images/cancel.png" width="64" height="64" title="Cancelar" class="box" onclick="window.history.go(-1)" />
         </form>
     
     <c:import url="../footer.jsp"></c:import>
+    
