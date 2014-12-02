@@ -235,7 +235,7 @@ public class ContatoCRUDServlet extends HttpServlet {
                             Logger.getLogger(FileUploadServlet.class.getName()).log(Level.SEVERE, null, ex);
                         }                    
                         
-                        request.getSession().setAttribute("msg_tipo", "notice");
+                        request.getSession().setAttribute("msg_tipo", "success");
                         request.getSession().setAttribute("msg", "Contato Alterado com Sucesso!!!");
                         request.getSession().setAttribute("msg_show", "1");
 

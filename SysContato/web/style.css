@@ -7,7 +7,7 @@ and open the template in the editor.
     Created on : 17/11/2014, 17:54:25
     Author     : joshua
 */
-
+/*
 .box {
     padding: 3px;
 }
@@ -20,4 +20,40 @@ and open the template in the editor.
 td {
     padding-left: 5px;
     padding-right: 5px;
+}
+
+*/
+
+body {
+    background-color: #333333;
+}
+
+footer {
+    color: white;
+}
+
+footer div p {
+    font-size: 14px;
+}
+
+header {
+    height: 70px;
+    font-size: 32px;
+}
+
+header a {
+    color: white;
+}
+
+fieldset legend {
+    background-color: transparent;
+}
+
+#foto-read {
+    width: fit-content;
+}
+
+#caixa-foto-read {
+    width: content-box;
+    height: 698px;
 }

@@ -7,25 +7,179 @@
         <script>window.location="denied.jsp";</script>
     </c:if>
             
-        <form action="ContatoCRUDServlet" method="post">
-            <input type="hidden" id="action" name="action" value="read" />
-            <input type="hidden" id="option" name="option" value="list" />
-            
-            <img src="${contato.foto}" width="10%" height="10%" /><br />
-            <label for="nome">Nome:</label><span>${contato.nome}</span><br />
-            <label for="dataNasc">Nascimento:</label><span>${contato.strDataNasc}</span><br />
-            <label for="cel">Celular:</label><span>${contato.cel}</span><br />
-            <label for="operadoraCel">Operadora:</label><span>${contato.operadora.nome}</span><br />
-            <label for="idEstado">Estado:</label><span>${contato.cidade.estado.sigla}</span><br />
-            <label for="idCidade">Cidade:</label><span>${contato.cidade.nome}</span><br />
-            <label for="email">Email:</label><span>${contato.email}</span><br />
-            <label>Facebook:</label><span>${contato.facebook}</span><br />
-            <label>Twitter:</label><span>${contato.twitter}</span><br />
-            <label>Site:</label><span>${contato.site}</span><br />
-            <label>Foto:</label><span>${contato.foto}</span><br />
-            <br />
-            <input type="image" src="images/view.png" width="64" height="64" title="Voltar" class="box" onclick="window.history.go(-1)" />
-        </form>
-    
+    <section class="row panel large-12 radius">
+
+        <div class="row large-2">    
+            <fieldset class="large-5 column centered">
+                <legend><h3 class="centered">Foto</h3></legend>
+                <div id="caixa-foto-read">
+                    <img id="foto-read" src="${contato.foto}" />
+                </div>
+            </fieldset>
+
+            <fieldset class="large-7 column right">
+                <legend><h3 class="centered">Dados</h3></legend>
+                <form action="ContatoCRUDServlet" method="post">
+                    <input type="hidden" id="action" name="action" value="read" />
+                    <input type="hidden" id="option" name="option" value="list" />
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                          <div class="row collapse prefix-radius">
+                            <div class="small-2 columns">
+                                <a class="button prefix" for="nome">Nome</a>
+                            </div>
+                            <div class="small-10 columns">
+                              <input type="text" disabled="disabled" value="${contato.nome}" />
+                            </div>
+                          </div>
+                        </div>                
+                    </div>
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                          <div class="row collapse prefix-radius">
+                            <div class="small-2 columns">
+                                <a class="button prefix" for="dataNasc">Nascimento</a>
+                            </div>
+                            <div class="small-10 columns">
+                                <input type="text" disabled="disabled" value="${contato.strDataNasc}" />
+                            </div>
+                          </div>
+                        </div>                
+                    </div>
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                          <div class="row collapse prefix-radius">
+                            <div class="small-2 columns">
+                                <a class="button prefix" for="cel">Celular</a>
+                            </div>
+                            <div class="small-10 columns">
+                                <input type="text" disabled="disabled" value="${contato.cel}" />
+                            </div>
+                          </div>
+                        </div>                
+                    </div>
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                          <div class="row collapse prefix-radius">
+                            <div class="small-2 columns">
+                                <a class="button prefix" for="idOperadora">Operadora</a>
+                            </div>
+                            <div class="small-10 columns">
+                                <input type="text" disabled="disabled" value="${contato.operadora.nome}" />
+                            </div>
+                          </div>
+                        </div>                
+                    </div>
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                          <div class="row collapse prefix-radius">
+                            <div class="small-2 columns">
+                                <a class="button prefix" for="idEstado">Estado</a>
+                            </div>
+                            <div class="small-10 columns">
+                                <input type="text" disabled="disabled" value="${contato.cidade.estado.sigla}" />
+                            </div>
+                          </div>
+                        </div>                
+                    </div>
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                          <div class="row collapse prefix-radius">
+                            <div class="small-2 columns">
+                                <a class="button prefix" for="idCidade">Cidade</a>
+                            </div>
+                            <div class="small-10 columns">
+                                <input type="text" disabled="disabled" value="${contato.cidade.nome}" />
+                            </div>
+                          </div>
+                        </div>                
+                    </div>
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                          <div class="row collapse prefix-radius">
+                            <div class="small-2 columns">
+                                <a class="button prefix" for="email">Email</a>
+                            </div>
+                            <div class="small-10 columns">
+                                <input type="text" disabled="disabled" value="${contato.email}" />
+                            </div>
+                          </div>
+                        </div>                
+                    </div>
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                          <div class="row collapse prefix-radius">
+                            <div class="small-2 columns">
+                                <a class="button prefix" for="facebook">Facebook</a>
+                            </div>
+                            <div class="small-4 columns">
+                                <span class="prefix">https://www.facebook.com/</span>
+                            </div>
+                            <div class="small-6 columns">
+                                <input type="text" disabled="disabled" value="${contato.facebook}" />
+                            </div>
+                          </div>
+                        </div>                
+                    </div>
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                          <div class="row collapse prefix-radius">
+                            <div class="small-2 columns">
+                                <a class="button prefix" for="twitter">Twitter</a>
+                            </div>
+                            <div class="small-3 columns">
+                                <span class="prefix">https://twitter.com/</span>
+                            </div>
+                            <div class="small-7 columns">
+                                <input type="text" disabled="disabled" value="${contato.twitter}" />
+                            </div>
+                          </div>
+                        </div>                
+                    </div>
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                          <div class="row collapse prefix-radius">
+                            <div class="small-2 columns">
+                                <a class="button prefix" for="site">Site</a>
+                            </div>
+                            <div class="small-1 columns">
+                                <span class="prefix">http://</span>
+                            </div>
+                            <div class="small-9 columns">
+                                <input type="text" disabled="disabled" value="${contato.site}" />
+                            </div>
+                          </div>
+                        </div>                
+                    </div>
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                          <div class="row collapse prefix-radius">
+                            <div class="small-2 columns">
+                                <a class="button prefix" for="foto">Foto</a>
+                            </div>
+                            <div class="small-10 columns">
+                                <input type="text" disabled="disabled" value="${contato.foto}" />
+                            </div>
+                          </div>
+                        </div>                
+                    </div>
+
+                    <input class="button warning radius expand" type="button" value="Voltar" title="Voltar" onclick="window.history.go(-1)" />
+                    <!--<input type="image" src="images/view.png" width="64" height="64" title="Voltar" class="box" onclick="window.history.go(-1)" />-->
+                </form>
+            </fieldset>
+        </div>
+    </section>        
     <c:import url="../footer.jsp"></c:import>
     
